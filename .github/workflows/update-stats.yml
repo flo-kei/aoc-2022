@@ -1,0 +1,27 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Update README
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  schedule:
+  - cron: "51 */4 * * *"  # Every 4 hours
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: k2bd/advent-readme-stars@v1
+        with:
+          userId: flo-kei
+          leaderboardId: 1534324
+          sessionCookie: ${{ secrets.AOC_SESSION }}
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update README stars
